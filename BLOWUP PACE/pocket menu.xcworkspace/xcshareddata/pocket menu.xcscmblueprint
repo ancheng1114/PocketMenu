@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A6D3E592DB1F79A876D752D9B3429060CF62CF90",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A6D3E592DB1F79A876D752D9B3429060CF62CF90" : 0,
+    "F48AA8E6B5B578B3970519A8D50ACD2E11398514" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "776E689F-24D1-4FF2-B1E8-91943906EC5C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A6D3E592DB1F79A876D752D9B3429060CF62CF90" : "Pocket-Git\/",
+    "F48AA8E6B5B578B3970519A8D50ACD2E11398514" : "PocketMenu-Git"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "pocket menu",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "BLOWUP PACE\/pocket menu.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ancheng1114\/PocketMenu.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A6D3E592DB1F79A876D752D9B3429060CF62CF90"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ancheng1114\/Pocket-Menu.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F48AA8E6B5B578B3970519A8D50ACD2E11398514"
+    }
+  ]
+}

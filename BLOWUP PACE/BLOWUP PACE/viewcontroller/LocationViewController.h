@@ -12,4 +12,6 @@
 
 @property (nonatomic ,assign) IBOutlet UITableView *tableView;
 
+- (void)getLocations;
+
 @end

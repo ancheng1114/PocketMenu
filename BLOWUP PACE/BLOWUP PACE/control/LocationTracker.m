@@ -262,25 +262,25 @@
 //        //TODO: Your code to send the self.myLocation and self.myLocationAccuracy to your server
         //NSLog(@"Send to Server: Latitude(%f) Longitude(%f) Accuracy(%f)",self.myLocation.latitude, self.myLocation.longitude,self.myLocationAccuracy);
 
-        [[APIService sharedManager] enterLocatinon:self.myLocation.longitude lat:self.myLocation.latitude onCompletion:^(NSDictionary *result,NSError *error){
-            
-        }];
+//        [[APIService sharedManager] enterLocatinon:self.myLocation.longitude lat:self.myLocation.latitude onCompletion:^(NSDictionary *result,NSError *error){
+//            
+//        }];
         
-//        if (_testIndex > 12) _testIndex = 0;
-//        
-//        NSArray *testArr = @[ @[@40.8329010 ,@(-73.9410710)] , // location ok
-//                              @[@40.25936 ,@70.93131], // no location ok
-//                              @[@40.8329010 ,@(-73.9410710)], // no location ok
-//                              @[@40.45936 ,@72.93131], // no location ok
-//                              @[@40.8329010 ,@(-73.9410710)] , // location ok
-//                              @[@40.85936 ,@14.93131], // no location ok
-//                              @[@40.85936 ,@24.93131], // no location ok
-//                              @[@40.85936 ,@34.93131], // no location ok
-//                              @[@40.85936 ,@44.93131], // no location ok
-//                              @[@40.85936 ,@73.93131], // location ok
-//                              @[@40.85936 ,@73.93131], // location 
-//                              @[@40.85936 ,@74.93131], // no location ok
-//                              @[@40.86197 ,@73.92522]]; // location ok
+        if (_testIndex > 12) _testIndex = 0;
+        
+        NSArray *testArr = @[ @[@40.8329010 ,@(-73.9410710)] , // location ok
+                              @[@40.25936 ,@70.93131], // no location ok
+                              @[@40.8329010 ,@(-73.9410710)], //  location ok
+                              @[@40.45936 ,@72.93131], // no location ok
+                              @[@40.8329010 ,@(-73.9410710)] , // location ok
+                              @[@40.85936 ,@14.93131], // no location ok
+                              @[@40.85936 ,@24.93131], // no location ok
+                              @[@40.85936 ,@34.93131], // no location ok
+                              @[@40.85936 ,@44.93131], // no location ok
+                              @[@40.85936 ,@73.93131], // location ok
+                              @[@40.85936 ,@73.93131], // location 
+                              @[@40.85936 ,@74.93131], // no location ok
+                              @[@40.86197 ,@73.92522]]; // location ok
 
 //        NSArray *testArr = @[ @[@40.83290 ,@73.94107] , // location
 //                              @[@40.25936 ,@70.93131], // no location
@@ -296,12 +296,12 @@
 //                              @[@40.85936 ,@74.93131], // no location
 //                              @[@40.86197 ,@73.92522]]; // location
         
-        //NSLog(@"Lon : %f , Lat : %f" ,[[[testArr objectAtIndex:_testIndex] objectAtIndex:1] doubleValue] ,[[[testArr objectAtIndex:_testIndex] objectAtIndex:0] doubleValue]);
-//        [[APIService sharedManager] enterLocatinon:[[[testArr objectAtIndex:_testIndex] objectAtIndex:1] doubleValue] lat:[[[testArr objectAtIndex:_testIndex] objectAtIndex:0] doubleValue] onCompletion:^(NSDictionary *result,NSError *error){
-//            
-//        }];
-//        
-//        _testIndex ++;
+        NSLog(@"Lon : %f , Lat : %f" ,[[[testArr objectAtIndex:_testIndex] objectAtIndex:1] doubleValue] ,[[[testArr objectAtIndex:_testIndex] objectAtIndex:0] doubleValue]);
+        [[APIService sharedManager] enterLocatinon:[[[testArr objectAtIndex:_testIndex] objectAtIndex:1] doubleValue] lat:[[[testArr objectAtIndex:_testIndex] objectAtIndex:0] doubleValue] onCompletion:^(NSDictionary *result,NSError *error){
+            
+        }];
+        
+        _testIndex ++;
 
     }
     //After sending the location to the server successful, remember to clear the current array with the following code. It is to make sure that you clear up old location in the array and add the new locations from locationManager

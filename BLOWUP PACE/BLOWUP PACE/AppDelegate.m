@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "CategoryViewController.h"
+#import "LocationViewController.h"
 #import "UIColor+HexString.h"
 #import "Flurry.h"
 
@@ -22,7 +22,7 @@
     
     [Parse setApplicationId:@"4hZMh1h4ru14hxN8Jxh0ThgQup7wc6pILNGzlbdw" clientKey:@"JUWBPPvJl1s0UtvFXZcqx99djlkL0nXzsc2OMVGM"];
     
-    [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:KEY_LOCATIONID];
+    [[NSUserDefaults standardUserDefaults] setValue:[NSMutableArray new] forKey:KEY_LOCATIONID];
     
     [Flurry startSession:@"56Q288CY8NXQ7YB6NQS6"];
     //[Flurry logPageView];
@@ -151,29 +151,24 @@
         [alertView show];
         [self performSelector:@selector(dismissAlertView:) withObject:alertView afterDelay:3];
         
-        NSString *locationId =  [[[userInfo valueForKey:@"aps"] valueForKey:@"Location"] objectForKey:@"location_id"];
-        // save location id
-        // compare old location id , if not same , leave location , getlocation , if same , do nothing process
-        
-        if (locationId != nil)
+        if ([userInfo[@"aps"]  objectForKey:@"Location"] != nil)
         {
-            // UI refresh
-            
-            UINavigationController *vc = (UINavigationController *)[self.window rootViewController];
-            CategoryViewController *locationVC = (CategoryViewController *) [vc.viewControllers objectAtIndex:0];
-            [vc popToViewController:locationVC animated:NO];
-            [locationVC getLocation:locationId];
+            NSString *locationId =  [[[userInfo valueForKey:@"aps"] valueForKey:@"Location"] objectForKey:@"location_id"];
+            NSArray *idArr = [locationId componentsSeparatedByString:@","];
+            [[NSUserDefaults standardUserDefaults] setValue:idArr forKey:KEY_LOCATIONID];
         }
         else
         {
-            UINavigationController *vc = (UINavigationController *)[self.window rootViewController];
-            CategoryViewController *locationVC = (CategoryViewController *) [vc.viewControllers objectAtIndex:0];
-            [vc popToViewController:locationVC animated:NO];
-            locationVC.noitemLbl.hidden = NO;
-            locationVC.categoyTableView.hidden = YES;
-            locationVC.title = @"Venue";
-            
+            [[NSUserDefaults standardUserDefaults] setValue:[NSArray new] forKey:KEY_LOCATIONID];
         }
+        // save location id
+        // compare old location id , if not same , leave location , getlocation , if same , do nothing process
+        
+        UINavigationController *vc = (UINavigationController *)[self.window rootViewController];
+        LocationViewController *locationVC = (LocationViewController *) [vc.viewControllers objectAtIndex:0];
+        [locationVC getLocations];
+        [vc popToViewController:locationVC animated:NO];
+
     }
     else
     {

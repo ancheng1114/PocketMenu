@@ -611,6 +611,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="tableView" destination="CAJ-nW-0G9" id="R8p-q5-bQx"/>
                         <segue destination="eHo-hF-Tv6" kind="push" identifier="locationSegue" id="5oA-MG-sk1"/>
                     </connections>
                 </viewController>

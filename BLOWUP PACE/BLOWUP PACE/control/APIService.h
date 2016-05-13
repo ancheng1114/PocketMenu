@@ -16,6 +16,7 @@ typedef void(^RequestCompletionHandler)(NSDictionary *result,NSError *error);
 typedef void(^RequestCompletionHandler1)(NSArray *result,NSError *error);
 
 - (void)enterLocatinon:(double)lon lat:(double)lat onCompletion:(RequestCompletionHandler)complete;
+- (void)getLocations:(NSString *)locationId onCompletion:(RequestCompletionHandler)complete;
 - (void)getLoactionInfo:(NSString *)locationId onCompletion:(RequestCompletionHandler)complete;
 - (void)getProduct:(NSString *)categoryId location:(NSString *)locationId onCompletion:(RequestCompletionHandler)complete;
 - (void)getProductInfo:(NSString *)productId onCompletion:(RequestCompletionHandler)complete;

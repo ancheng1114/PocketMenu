@@ -22,13 +22,23 @@
 
 - (void)setData:(NSDictionary *)dic
 {
-    _nameLbl.text = dic[@"location_name"];
-    _addressLbl.text = dic[@"location_address"];
+    if (dic[@"location_name"] != [NSNull null])
+        _nameLbl.text = dic[@"location_name"];
+    
+    if (dic[@"location_address"] != [NSNull null])
+        _addressLbl.text = dic[@"location_address"];
 
-    _cityLbl.text = dic[@"location_city"];
-    _stateLbl.text = dic[@"location_state"];
-    _zipcodeLbl.text = dic[@"location_zip"];
-    _phonenumberLbl.text = dic[@"location_phone"];
+    if (dic[@"location_city"] != [NSNull null])
+        _cityLbl.text = dic[@"location_city"];
+    
+    if (dic[@"location_state"] != [NSNull null])
+        _stateLbl.text = dic[@"location_state"];
+    
+    if (dic[@"location_zip"] != [NSNull null])
+        _zipcodeLbl.text = dic[@"location_zip"];
+    
+    if (dic[@"location_phone"] != [NSNull null])
+        _phonenumberLbl.text = dic[@"location_phone"];
     
     if (dic[@"location_lat"] != [NSNull null])
     {

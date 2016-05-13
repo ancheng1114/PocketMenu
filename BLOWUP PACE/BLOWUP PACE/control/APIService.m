@@ -30,10 +30,8 @@
     responseSerializer.acceptableContentTypes = [responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     manager.responseSerializer = responseSerializer;
     
-    NSString *locationId = [[NSUserDefaults standardUserDefaults] objectForKey:KEY_LOCATIONID];
-    if (locationId == nil) locationId = @"0";
-    
-    NSDictionary *params = @{@"task" : @"enterLocation" ,@"lat" : [NSNumber numberWithDouble:lat] , @"lon" : [NSNumber numberWithDouble:lon] ,@"deviceToken" : delegate.deviceToken ,@"location_id" : locationId};
+    NSArray *locationIds = [[NSUserDefaults standardUserDefaults] valueForKey:KEY_LOCATIONID];
+    NSDictionary *params = @{@"task" : @"enterLocation" ,@"lat" : [NSNumber numberWithDouble:lat] , @"lon" : [NSNumber numberWithDouble:lon] ,@"deviceToken" : delegate.deviceToken ,@"location_id" : [locationIds componentsJoinedByString:@","]};
     
     NSLog(@"Enter Params : %@" ,params);
     
@@ -41,19 +39,21 @@
         
         NSLog(@"Enter Location: %@", responseObject);
         
-        NSString *locationId;
-        
+        NSMutableArray *locationidArr = [NSMutableArray new];
+
         if (responseObject == nil)
         {
         }
         else
         {
-            if ([responseObject objectForKey:@"state"] != nil) return;
-            locationId = responseObject[@"location_id"];
+            // parse
+            for (NSDictionary *dic in responseObject[@"locations"])
+            {
+                [locationidArr addObject:dic[@"location_id"]];
+            }
         }
         
-        if (locationId == nil) locationId = @"0";
-        [[NSUserDefaults standardUserDefaults] setValue:locationId forKey:KEY_LOCATIONID];
+        [[NSUserDefaults standardUserDefaults] setValue:locationidArr forKey:KEY_LOCATIONID];
         complete(responseObject ,nil);
     
     } failure:^(NSURLSessionTask *operation, NSError *error) {
@@ -63,6 +63,28 @@
         
     }];
     
+}
+
+- (void)getLocations:(NSString *)locationId onCompletion:(RequestCompletionHandler)complete
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    responseSerializer.acceptableContentTypes = [responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    manager.responseSerializer = responseSerializer;
+    
+    if (locationId.length == 0) locationId = @"0";
+    NSDictionary *params = @{@"task" : @"newLocation" ,@"location_id" : locationId};
+    [manager POST:BASE_URL parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        
+        NSLog(@"Location: %@", responseObject);
+        complete(responseObject ,nil);
+        
+    } failure:^(NSURLSessionTask *operation, NSError *error) {
+        
+        NSLog(@"Error: %@", error);
+        complete(nil ,error);
+        
+    }];
 }
 
 - (void)getLoactionInfo:(NSString *)locationId onCompletion:(RequestCompletionHandler)complete

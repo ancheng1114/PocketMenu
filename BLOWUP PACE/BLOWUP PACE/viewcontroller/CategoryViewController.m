@@ -20,20 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [Flurry logAllPageViewsForTarget:self.navigationController];
-    
+        
     _categoyArr = [NSMutableArray new];
     //[self performSelector:@selector(selector) withObject:nil afterDelay:3.0f];
 
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatedLocation:) name:@"updateLocation" object:delegate.locationTracker];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationEnteredForeground:)
-                                                 name:UIApplicationWillEnterForegroundNotification
-                                               object:nil];
-    
+    [self getLocation:_locationId];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,12 +48,6 @@
 {
     [super viewWillDisappear:animated];
     
-}
-
-- (void)applicationEnteredForeground:(NSNotification *)notification {
-    NSLog(@"Application Entered Foreground");
-    
-    [self getLocation:[[NSUserDefaults standardUserDefaults] valueForKey:KEY_LOCATIONID]];
 }
 
 #pragma mark - Navigation
@@ -87,10 +73,15 @@
         if (![result[@"location_id"] isEqualToString:@"0"])
         {
             self.title = result[@"location_name"];
-            _categoyArr = [[NSMutableArray alloc] initWithArray:result[@"categories"]];
-            [_categoyTableView reloadData];
-            _categoyTableView.hidden = NO;
-            _noitemLbl.hidden = YES;
+            
+            if ([result[@"categories"] isKindOfClass:[NSArray class]])
+            {
+                _categoyArr = [[NSMutableArray alloc] initWithArray:result[@"categories"]];
+                [_categoyTableView reloadData];
+                _categoyTableView.hidden = NO;
+                _noitemLbl.hidden = YES;
+            }
+            
         }
         else
         {
@@ -145,23 +136,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 130.0f;
-}
-
-#pragma mark - NSNotification
-- (void)updatedLocation:(NSNotification *)notification
-{
-    AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateLocation" object:delegate.locationTracker];
-    
-    NSNumber *lat = [[notification userInfo] valueForKey:@"latitude"];
-    NSNumber *lng = [[notification userInfo] valueForKey:@"longitude"];
-    //NSLog(@"Send to Server: Latitude(%f) Longitude(%f)", lat.doubleValue, lng.doubleValue);
-    
-    [[APIService sharedManager] enterLocatinon:lng.doubleValue lat:lat.doubleValue onCompletion:^(NSDictionary *result,NSError *error){
-        
-        
-    }];
-    
 }
 
 @end
